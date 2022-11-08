@@ -1,0 +1,38 @@
+
+int inputVout = D4; // Vout PIR
+int statusPIR = 0; // status logical
+int relay = D5;
+int data = 0; // variabel temporary utk menampung data PIR 
+
+void setup() {
+ pinMode(relay, OUTPUT); 
+pinMode(inputVout, INPUT); // set pin 2 sbg input
+Serial.begin(9600); //serial monitor
+  // Set pin as output.
+ 
+  // init saat reset/off beri nilai off pada relay
+  digitalWrite(relay, HIGH);
+} 
+ void loop(){
+data = digitalRead(inputVout); // baca input dr Vout
+if ((data == HIGH) && (statusPIR == LOW)) { // cek jika ada pergerakan
+              Serial.println(statusPIR);
+        //buat monitor ke laptop
+         statusPIR = HIGH; //diset high spy tdk mendeteksi terus
+         digitalWrite(relay, LOW);
+         delay(5000);
+         digitalWrite(relay, HIGH);
+         delay(500); 
+} 
+else {
+  if ((data == LOW) && (statusPIR == HIGH)){
+  
+   Serial.println(statusPIR);
+   //buat monitor ke laptop
+   statusPIR = LOW;
+   }
+ }
+
+ }
+
+
